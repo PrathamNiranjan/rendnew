@@ -1,1 +1,68 @@
+{% extends 'base.html' %}
 
+{% block title %}Price Prediction - AgriTech Platform{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Crop Price Prediction</h4>
+            </div>
+            <div class="card-body">
+                {% if predicted_price %}
+                <div class="alert alert-success mb-4">
+                    <h5 class="alert-heading">Predicted Price for {{ crop_name }}</h5>
+                    <p class="display-6">₹{{ predicted_price }} <span class="fs-6">per quintal</span></p>
+                    <hr>
+                    <p class="mb-0">This prediction is based on historical data and market trends.</p>
+                </div>
+                {% endif %}
+
+                <form method="POST" action="{{ url_for('price_prediction') }}">
+                    <div class="mb-3">
+                        <label for="crop_name" class="form-label">Select Crop</label>
+                        <select class="form-select" id="crop_name" name="crop_name" required>
+                            <option value="" selected disabled>Choose a crop</option>
+                            <option value="Rice">Rice</option>
+                            <option value="Wheat">Wheat</option>
+                            <option value="Maize">Maize</option>
+                            <option value="Potatoes">Potatoes</option>
+                            <option value="Tomatoes">Tomatoes</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="region" class="form-label">Select Region</label>
+                        <select class="form-select" id="region" name="region" required>
+                            <option value="" selected disabled>Choose a region</option>
+                            <option value="North">North</option>
+                            <option value="South">South</option>
+                            <option value="East">East</option>
+                            <option value="West">West</option>
+                            <option value="Central">Central</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="season" class="form-label">Select Season</label>
+                        <select class="form-select" id="season" name="season" required>
+                            <option value="" selected disabled>Choose a season</option>
+                            <option value="Summer">Summer</option>
+                            <option value="Winter">Winter</option>
+                            <option value="Monsoon">Monsoon</option>
+                        </select>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-success">Predict Price</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer bg-light">
+                <p class="mb-0 text-muted small">Our price prediction algorithm analyzes historical price trends, seasonal variations, and regional factors to estimate future crop prices.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
