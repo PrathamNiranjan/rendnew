@@ -1,1 +1,54 @@
+{% extends 'base.html' %}
 
+{% block title %}AgriTech Platform - Home{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="jumbotron bg-light p-5 rounded">
+            <h1 class="display-4">Welcome to AgriTech Platform</h1>
+            <p class="lead">Empowering farmers with technology for better crop management and market access.</p>
+            <hr class="my-4">
+            <p>Use our tools to get crop recommendations, predict prices, and connect with buyers and sellers in the marketplace.</p>
+            <div class="d-flex gap-2">
+                {% if 'user_email' not in session %}
+                    <a class="btn btn-success btn-lg" href="{{ url_for('signup') }}" role="button">Get Started</a>
+                {% else %}
+                    <a class="btn btn-success btn-lg" href="{{ url_for('crop_recommendation') }}" role="button">Get Crop Recommendations</a>
+                {% endif %}
+                <a class="btn btn-outline-success btn-lg" href="{{ url_for('marketplace') }}" role="button">Visit Marketplace</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Crop Recommendation</h5>
+                <p class="card-text">Get personalized crop recommendations based on soil conditions and climate factors to maximize your yield.</p>
+                <a href="{{ url_for('crop_recommendation') }}" class="btn btn-sm btn-outline-success">Try Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Price Prediction</h5>
+                <p class="card-text">Predict market prices for your crops based on historical data, season, and region to plan your sales better.</p>
+                <a href="{{ url_for('price_prediction') }}" class="btn btn-sm btn-outline-success">Try Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Marketplace</h5>
+                <p class="card-text">Connect directly with buyers and sellers to get the best deals for your agricultural products.</p>
+                <a href="{{ url_for('marketplace') }}" class="btn btn-sm btn-outline-success">Visit Marketplace</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
