@@ -1,1 +1,79 @@
+{% extends 'base.html' %}
 
+{% block title %}Crop Recommendation - AgriTech Platform{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Crop Recommendation System</h4>
+            </div>
+            <div class="card-body">
+                {% if recommendation %}
+                <div class="alert alert-success mb-4">
+                    <h5 class="alert-heading">Recommended Crop: {{ recommendation }}</h5>
+                    <p>Based on the soil parameters and climate conditions you provided, we recommend growing {{ recommendation }}.</p>
+                    <hr>
+                    <p class="mb-0">Continue to explore other options or try different parameters.</p>
+                </div>
+                {% endif %}
+
+                <form method="POST" action="{{ url_for('crop_recommendation') }}">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="nitrogen" class="form-label">Nitrogen (N) content in soil</label>
+                            <input type="number" step="0.01" class="form-control" id="nitrogen" name="nitrogen" required 
+                                   placeholder="e.g., 90" min="0" max="300">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="phosphorus" class="form-label">Phosphorus (P) content in soil</label>
+                            <input type="number" step="0.01" class="form-control" id="phosphorus" name="phosphorus" required 
+                                   placeholder="e.g., 45" min="0" max="300">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="potassium" class="form-label">Potassium (K) content in soil</label>
+                            <input type="number" step="0.01" class="form-control" id="potassium" name="potassium" required 
+                                   placeholder="e.g., 60" min="0" max="300">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="temperature" class="form-label">Temperature (°C)</label>
+                            <input type="number" step="0.01" class="form-control" id="temperature" name="temperature" required 
+                                   placeholder="e.g., 25.5" min="-10" max="60">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="humidity" class="form-label">Humidity (%)</label>
+                            <input type="number" step="0.01" class="form-control" id="humidity" name="humidity" required 
+                                   placeholder="e.g., 80" min="0" max="100">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="ph" class="form-label">pH value of soil</label>
+                            <input type="number" step="0.01" class="form-control" id="ph" name="ph" required 
+                                   placeholder="e.g., 6.5" min="0" max="14">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="rainfall" class="form-label">Rainfall (mm)</label>
+                        <input type="number" step="0.01" class="form-control" id="rainfall" name="rainfall" required 
+                               placeholder="e.g., 200" min="0" max="3000">
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-success">Get Recommendation</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer bg-light">
+                <p class="mb-0 text-muted small">Our recommendation system uses machine learning to analyze soil parameters and climate conditions to suggest the most suitable crop for your farm.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
